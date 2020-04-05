@@ -71,6 +71,8 @@ app.get("/", (req, res) => {
   res.send("<h1>Red Onion Server</h1>");
 });
 
-app.listen(4200, () => {
+const port = process.env.PORT || 4200;
+
+app.listen(port, () => {
   console.log("Listening at port 4200");
 });
