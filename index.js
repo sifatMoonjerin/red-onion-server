@@ -15,11 +15,12 @@ app.use(bodyParser.json());
 app.post("/addMenu", (req, res) => {
   const menu = req.body;
   client = new MongoClient(uri, { useNewUrlParser: true });
-  client.connect((err) => {
+  client.connect((error) => {
     const collection = client.db("redOnion").collection("items");
     collection.insert(menu, (err, result) => {
       if (err) {
         console.log(err);
+        console.log(error)
         res.status(500).send({ message: err });
       } else {
         res.send(result.ops[0]);
@@ -33,11 +34,12 @@ app.post("/placeOrder", (req, res) => {
   const orderDetails = req.body;
   orderDetails.orderTime = new Date();
   client = new MongoClient(uri, { useNewUrlParser: true });
-  client.connect((err) => {
+  client.connect((error) => {
     const collection = client.db("redOnion").collection("orders");
     collection.insertOne(orderDetails, (err, result) => {
       if (err) {
         console.log(err);
+        console.log(error)
         res.status(500).send({ message: err });
       } else {
         res.send(result.ops[0]);
@@ -50,11 +52,12 @@ app.post("/placeOrder", (req, res) => {
 app.get("/items/:category", (req, res) => {
   const category = req.params.category;
   client = new MongoClient(uri, { useNewUrlParser: true });
-  client.connect((err) => {
+  client.connect((error) => {
     const collection = client.db("redOnion").collection("items");
     collection.find({ type: category }).toArray((err, documents) => {
       if (err) {
         console.log(err);
+        console.log(error)
         res.status(500).send({ message: err });
       } else {
         res.send(documents);
