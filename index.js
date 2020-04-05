@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const app = express();
 
-
 const uri = process.env.DB_PATH;
 let client = new MongoClient(uri, { useNewUrlParser: true });
 
