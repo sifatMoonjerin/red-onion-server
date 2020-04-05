@@ -6,9 +6,8 @@ require("dotenv").config();
 
 const app = express();
 
-const dbUser = process.env.DB_USER;
-const password = process.env.DB_PASS;
-const uri = `mongodb+srv://${dbUser}:${password}@cluster0-2fzci.mongodb.net/test?retryWrites=true&w=majority`;
+
+const uri = process.env.DB_PATH;
 let client = new MongoClient(uri, { useNewUrlParser: true });
 
 app.use(cors());
