@@ -49,12 +49,12 @@ app.post("/placeOrder", (req, res) => {
   });
 });
 
-app.get("/items/:category", (req, res) => {
-  const category = req.params.category;
+app.get("/items", (req, res) => {
+  //const category = req.params.category;
   client = new MongoClient(uri, { useNewUrlParser: true });
   client.connect((error) => {
     const collection = client.db("redOnion").collection("items");
-    collection.find({ type: category }).toArray((err, documents) => {
+    collection.find().toArray((err, documents) => {
       if (err) {
         console.log(err);
         console.log(error)
