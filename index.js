@@ -49,6 +49,26 @@ app.post("/placeOrder", (req, res) => {
   });
 });
 
+app.post("/rateUs", (req, res) => {
+  const rating = req.body;
+  rating.ratingTime = new Date();
+  client = new MongoClient(uri, { useNewUrlParser: true });
+  client.connect((error) => {
+    const collection = client.db("redOnion").collection("ratings");
+    collection.insertOne(rating, (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log(error)
+        res.status(500).send({ message: err });
+      } else {
+        res.send(result.ops[0]);
+      }
+    });
+    client.close();
+  });
+});
+
+
 app.get("/items", (req, res) => {
   //const category = req.params.category;
   client = new MongoClient(uri, { useNewUrlParser: true });
